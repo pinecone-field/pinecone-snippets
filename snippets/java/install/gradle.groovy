@@ -1,0 +1,1 @@
+implementation "io.pinecone:pinecone-client:${pineconeVersion}"
