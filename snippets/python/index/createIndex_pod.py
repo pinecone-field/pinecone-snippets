@@ -3,7 +3,7 @@ from pinecone import PodSpec
 
 pc = Pinecone(api_key="YOUR_API_KEY")
 
-pc.create_index(
+index = pc.create_index(
   name="example-index",
   dimension=1536,
   metric="cosine",
