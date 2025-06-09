@@ -4,9 +4,9 @@
   const target = new URL(params.get("target"));
   const type = params.get("type") || 'code';
   const style = params.get("style");
-  const styleClassName = `hljs-style-${style.replace(/[^a-zA-Z0-9]/g, '-')}`;
-  const lightStyles = ['default', 'a11y-light', 'arduino-light', 'ascetic', 'atom-one-light', 'brown-paper', 'color-brewer', 'docco', 'foundation', 'github', 'googlecode', 'gradient-light', 'grayscale', 'idea', 'intellij-light', 'isbl-editor-light', 'kimbie-light', 'lightfair', 'magula', 'mono-blue', 'nnfx-light', 'panda-syntax-light', 'paraiso-light', 'purebasic', 'qtcreator-light', 'routeros', 'school-book', 'stackoverflow-light', 'tokyo-night-light', 'vs', 'xcode', 'base16/atelier-cave-light', 'base16/atelier-dune-light', 'base16/atelier-estuary-light', 'base16/atelier-forest-light', 'base16/atelier-heath-light', 'base16/atelier-lakeside-light', 'base16/atelier-plateau-light', 'base16/atelier-savanna-light', 'base16/atelier-seaside-light', 'base16/atelier-sulphurpool-light', 'base16/brush-trees', 'base16/classic-light', 'base16/cupcake', 'base16/cupertino', 'base16/default-light', 'base16/dirtysea', 'base16/edge-light', 'base16/equilibrium-gray-light', 'base16/equilibrium-light', 'base16/fruit-soda', 'base16/github', 'base16/google-light', 'base16/grayscale-light', 'base16/gruvbox-light-hard', 'base16/gruvbox-light-medium', 'base16/gruvbox-light-soft', 'base16/harmonic16-light', 'base16/heetch-light', 'base16/horizon-light', 'base16/humanoid-light', 'base16/ia-light', 'base16/material-lighter', 'base16/mexico-light', 'base16/one-light', 'base16/papercolor-light', 'base16/ros-pine-dawn', 'base16/sagelight', 'base16/shapeshifter', 'base16/silk-light', 'base16/solar-flare-light', 'base16/solarized-light', 'base16/summerfruit-light', 'base16/synth-midnight-terminal-light', 'base16/tomorrow', 'base16/unikitty-light', 'base16/windows-10-light', 'base16/windows-95-light', 'base16/windows-high-contrast-light', 'base16/windows-nt-light'];
-  const isDarkStyle = !lightStyles.includes(style);
+  // const styleClassName = `hljs-style-${style.replace(/[^a-zA-Z0-9]/g, '-')}`;
+  // const lightStyles = ['default', 'a11y-light', 'arduino-light', 'ascetic', 'atom-one-light', 'brown-paper', 'color-brewer', 'docco', 'foundation', 'github', 'googlecode', 'gradient-light', 'grayscale', 'idea', 'intellij-light', 'isbl-editor-light', 'kimbie-light', 'lightfair', 'magula', 'mono-blue', 'nnfx-light', 'panda-syntax-light', 'paraiso-light', 'purebasic', 'qtcreator-light', 'routeros', 'school-book', 'stackoverflow-light', 'tokyo-night-light', 'vs', 'xcode', 'base16/atelier-cave-light', 'base16/atelier-dune-light', 'base16/atelier-estuary-light', 'base16/atelier-forest-light', 'base16/atelier-heath-light', 'base16/atelier-lakeside-light', 'base16/atelier-plateau-light', 'base16/atelier-savanna-light', 'base16/atelier-seaside-light', 'base16/atelier-sulphurpool-light', 'base16/brush-trees', 'base16/classic-light', 'base16/cupcake', 'base16/cupertino', 'base16/default-light', 'base16/dirtysea', 'base16/edge-light', 'base16/equilibrium-gray-light', 'base16/equilibrium-light', 'base16/fruit-soda', 'base16/github', 'base16/google-light', 'base16/grayscale-light', 'base16/gruvbox-light-hard', 'base16/gruvbox-light-medium', 'base16/gruvbox-light-soft', 'base16/harmonic16-light', 'base16/heetch-light', 'base16/horizon-light', 'base16/humanoid-light', 'base16/ia-light', 'base16/material-lighter', 'base16/mexico-light', 'base16/one-light', 'base16/papercolor-light', 'base16/ros-pine-dawn', 'base16/sagelight', 'base16/shapeshifter', 'base16/silk-light', 'base16/solar-flare-light', 'base16/solarized-light', 'base16/summerfruit-light', 'base16/synth-midnight-terminal-light', 'base16/tomorrow', 'base16/unikitty-light', 'base16/windows-10-light', 'base16/windows-95-light', 'base16/windows-high-contrast-light', 'base16/windows-nt-light'];
+  const isDarkStyle = style === "dark";
   const showBorder = params.get("showBorder") === "on";
   const showLineNumbers = params.get("showLineNumbers") === "on";
   const showFileMeta = params.get("showFileMeta") === "on";
@@ -88,18 +88,7 @@
 
 <style>
   .emgithub-file {
-    border-radius: 6px;
     overflow: hidden;
-    margin: 1em 0;
-  }
-
-  .emgithub-file-light {
-    border: 1px solid #ccc;
-  }
-
-  .emgithub-file-dark {
-    border: 1px solid #555;
-    background-color: #0d1117;
   }
 
 
@@ -195,56 +184,6 @@
     /* darken #f7f7f7 by 20% */
     background-color: #c4c4c4;
   }
-
-  .emgithub-file .code-area pre {
-    margin: 0;
-    padding: 0;
-    tab-size: ${tabSize};
-  }
-
-  .emgithub-file .code-area .hljs-ln-numbers {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-
-    text-align: right;
-    color: #aaa;
-    vertical-align: top;
-  }
-
-  .emgithub-file .code-area td.hljs-ln-numbers {
-    padding-right: 1rem;
-  }
-
-  .emgithub-file .code-area td.hljs-ln-line {
-    line-height: 21px;
-    font-size: 12px;
-    font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
-    border: 0;
-  }
-
-  .emgithub-file .code-area table.hljs-ln {
-    border: 0;
-    margin: 0;
-  }
-
-  .emgithub-file .code-area pre code.hljs {
-    padding: 0.8em;
-  }
-
-  /* use where() for backward compatibility */
-  :where(.emgithub-file .code-area pre code.hljs) {
-    box-sizing: border-box;
-    max-height: ${maxHeight ? maxHeight + 'px' : 'none'};
-    overflow-y: ${maxHeight ? 'auto' : 'visible'};
-  }
-
-  .emgithub-file .code-area .hide-line-numbers .hljs-ln-numbers {
-    display: none;
-  }
 </style>
 
 <style>
@@ -314,13 +253,13 @@
     <div></div>
   </div>
 
-  <div class="emgithub-file emgithub-file-${isDarkStyle ? 'dark' : 'light'}"
-    style="display:none;${showBorder ? '' : 'border:0'}">
-    <div class="file-data ${styleClassName}">
+  <div class="emgithub-file ${style}"
+    style="display:none;">
+    <div class="file-data">
       ${type === 'code' ? `<div class="code-area">
         ${showCopy ? `<a class="copy-btn copy-btn-${isDarkStyle ? 'dark' : 'light'}" href="javascript:void(0)">Copy</a>`
         : ''}
-        <pre><code class="${fileExtension} ${showLineNumbers ? '' : 'hide-line-numbers'}"></code></pre>
+        <pre class="language-${fileExtension} ${showLineNumbers ? 'line-numbers' : ''}"><code class="language-${fileExtension} ${showLineNumbers ? 'line-numbers' : ''}"></code></pre>
       </div>`: ''}
 
       ${type === 'markdown' || type === 'ipynb' ? `
@@ -354,19 +293,35 @@
 
 
   // Loading the external libraries
-  const HLJSURL = "https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.6.0/build/highlight.min.js";
-  const HLJSNumURL = "https://cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.8.0/dist/highlightjs-line-numbers.min.js";
-  const loadHLJS = typeof hljs != "undefined" && typeof hljs.highlightElement != "undefined" ? Promise.resolve() : loadScript(HLJSURL);
-  // Always use hljs-num even if showLineNumbers is false for a consistent display
-  // hljs-num should be loaded only after hljs is loaded
-  const loadHLJSNum = loadHLJS.then(() => (typeof hljs.lineNumbersBlock != "undefined" ? Promise.resolve() : loadScript(HLJSNumURL)));
-  const loadHLJSStyle = fetch(`https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.6.0/build/styles/${style}.min.css`)
-    .then((response) => response.text())
-    .then((text) => {
-      insertStyle(scopeCss(text, '.' + styleClassName));
-    });
+  // const HLJSURL = "https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.6.0/build/highlight.min.js";
+  // const HLJSNumURL = "https://cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.8.0/dist/highlightjs-line-numbers.min.js";
+  // const loadHLJS = typeof hljs != "undefined" && typeof hljs.highlightElement != "undefined" ? Promise.resolve() : loadScript(HLJSURL);
+  // // Always use hljs-num even if showLineNumbers is false for a consistent display
+  // // hljs-num should be loaded only after hljs is loaded
+  // const loadHLJSNum = loadHLJS.then(() => (typeof hljs.lineNumbersBlock != "undefined" ? Promise.resolve() : loadScript(HLJSNumURL)));
+  // const loadHLJSStyle = fetch(`https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.6.0/build/styles/${style}.min.css`)
+  //   .then((response) => response.text())
+  //   .then((text) => {
+  //     insertStyle(scopeCss(text, '.' + styleClassName));
+  //   });
 
-  promises.push(loadHLJSNum);
+  // promises.push(loadHLJSNum);
+
+  const prismUrl = "https://cdn.jsdelivr.net/npm/prismjs@1.30.0/prism.min.js";
+  const prismAutoLoader = "https://cdn.jsdelivr.net/npm/prismjs@1.30.0/plugins/autoloader/prism-autoloader.min.js";
+  const prismLineNumbers = "https://cdn.jsdelivr.net/npm/prismjs@1.30.0/plugins/line-numbers/prism-line-numbers.min.js";
+
+  const loadPrism = typeof Prism != "undefined" ? Promise.resolve() : loadScript(prismUrl);
+
+  const loadPrismAutoLoader = loadPrism.then(() => 
+    typeof Prism.plugins?.autoloader != "undefined" ? Promise.resolve() : loadScript(prismAutoLoader)
+  );
+
+  const loadPrismLineNumbers = loadPrism.then(() => 
+    typeof Prism.plugins?.lineNumbers != "undefined" ? Promise.resolve() : loadScript(prismLineNumbers)
+  );
+
+  promises.push(loadPrism, loadPrismAutoLoader, loadPrismLineNumbers);
 
   if (type === 'markdown' || type === 'ipynb') {
     const loadMarked = typeof marked != "undefined" ? Promise.resolve() : loadScript('https://cdn.jsdelivr.net/npm/marked@4.0.18/marked.min.js');
@@ -454,11 +409,23 @@
         });
       }
 
-      hljs.highlightElement(codeTag);
-      hljs.lineNumbersBlock(codeTag, {
-        singleLine: true,
-        startFrom: (startLine > 0 && fetchSuccess) ? Number.parseInt(startLine) : 1
-      });
+      // hljs.highlightElement(codeTag);
+      // hljs.lineNumbersBlock(codeTag, {
+      //   singleLine: true,
+      //   startFrom: (startLine > 0 && fetchSuccess) ? Number.parseInt(startLine) : 1
+      // });
+
+      Prism.highlightElement(codeTag);
+
+      // Get the height of the pre and send it to parent window
+      setTimeout(() => {
+        const pre = targetDiv.querySelector("pre");
+        const rect = pre.getBoundingClientRect();
+        window.parent.postMessage(
+          { action: "code-height", height: rect.height },
+          "*"
+        );
+      }, 0);
 
     } else if (type === 'markdown') {
       targetDiv.querySelector(".html-area").innerHTML = fetchSuccess ? marked.parse(result[0].value, { baseUrl: rawDirectoryURL }) : result[0].reason;
