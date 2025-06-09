@@ -138,52 +138,57 @@
   }
 
   .emgithub-file .code-area .copy-btn {
-    display: none;
-    border-radius: 3px;
-    font: bold 13px monospace;
+    border-radius: 6px;
     text-decoration: none;
     position: absolute;
-    top: 0px;
-    right: 0px;
-    margin: 0.4rem;
-    padding: 0.3rem;
+    top: 12px;
+    right: 12px;
+    z-index: 1;
+    padding: 6px;
   }
 
-  .emgithub-file:hover .code-area .copy-btn {
-    display: block;
-  }
-
-  .emgithub-file .code-area .copy-btn-light {
-    color: #586069;
-    background-color: #f7f7f7;
-    border: 1px solid #ccc;
+  .emgithub-file .code-area .copy-btn {
+    border: 1px solid rgba(var(--text-secondary-rgb), 0.4);
   }
 
   .emgithub-file .code-area .copy-btn-dark {
-    color: #f7f7f7;
-    background-color: #586069;
-    border: 1px solid #555;
+    border: 1px solid rgba(var(--text-primary-rgb), 0.3);
   }
 
-  .emgithub-file .code-area .copy-btn-light:hover {
-    color: #f7f7f7;
-    background-color: #586069;
+  .emgithub-file .code-area .copy-btn:hover {
+    opacity: 1;
   }
 
-  .emgithub-file .code-area .copy-btn-dark:hover {
-    color: #586069;
-    background-color: #f7f7f7;
+  .emgithub-file .code-area .copy-btn-light svg path {
+    fill: var(--text-secondary);
+    opacity: 0.4;
   }
 
-  .emgithub-file .code-area .copy-btn-light:active {
-    /* darken #586069 by 20% https://www.cssfontstack.com/oldsites/hexcolortool/ */
-    background-color: #252d36;
+  .emgithub-file .code-area .copy-btn-dark svg path {
+    fill: var(--text-primary);
+    opacity: 0.4;
   }
 
-  .emgithub-file .code-area .copy-btn-dark:active {
-    /* darken #f7f7f7 by 20% */
-    background-color: #c4c4c4;
+  .emgithub-file .code-area .copy-btn:hover svg path {
+    fill: var(--text-primary);
+    opacity: 1;
   }
+
+  .copy-success {
+    display: none;
+    position: absolute;
+    right: 4px;
+    top: 54px;
+    font-size: 14px;
+    color: var(text-secondary);
+    z-index: 1;
+    font-family: JetBrains Mono, monospace;
+  }
+
+  .dark .copy-success {
+    color: var(--text-primary);
+  }
+
 </style>
 
 <style>
@@ -257,7 +262,20 @@
     style="display:none;">
     <div class="file-data">
       ${type === 'code' ? `<div class="code-area">
-        ${showCopy ? `<a class="copy-btn copy-btn-${isDarkStyle ? 'dark' : 'light'}" href="javascript:void(0)">Copy</a>`
+        ${showCopy ? `<a class="copy-btn copy-btn-${isDarkStyle ? 'dark' : 'light'}" href="javascript:void(0)"><svg
+        width="16px"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="4.25 2.25 15.5 19.5"
+              className="w-4"
+            >
+              <path
+                fill="var(--text-primary)"
+                d="M19.53 8 14 2.47a.75.75 0 0 0-.53-.22H11A2.75 2.75 0 0 0 8.25 5v1.25H7A2.75 2.75 0 0 0 4.25 9v10A2.75 2.75 0 0 0 7 21.75h7A2.75 2.75 0 0 0 16.75 19v-1.25H17A2.75 2.75 0 0 0 19.75 15V8.5a.75.75 0 0 0-.22-.5Zm-5.28-3.19 2.94 2.94h-2.94V4.81Zm1 14.19A1.25 1.25 0 0 1 14 20.25H7A1.25 1.25 0 0 1 5.75 19V9A1.25 1.25 0 0 1 7 7.75h1.25V15A2.75 2.75 0 0 0 11 17.75h4.25V19ZM17 16.25h-6A1.25 1.25 0 0 1 9.75 15V5A1.25 1.25 0 0 1 11 3.75h1.75V8.5a.76.76 0 0 0 .75.75h4.75V15A1.25 1.25 0 0 1 17 16.25Z"
+              />
+            </svg></a> 
+            <div class="copy-success">
+              Copied!
+            </div>`
         : ''}
         <pre class="language-${fileExtension} ${showLineNumbers ? 'line-numbers' : ''}"><code class="language-${fileExtension} ${showLineNumbers ? 'line-numbers' : ''}"></code></pre>
       </div>`: ''}
@@ -503,6 +521,14 @@ function copyTextToClipboard(text) {
     return;
   }
   navigator.clipboard.writeText(text);
+
+  const copySuccess = document.querySelector(".copy-success");
+  if (copySuccess) {
+    copySuccess.style.display = "block";
+    setTimeout(() => {
+      copySuccess.style.display = "none";
+    }, 2000);
+  }
 }
 
 function fallbackCopyTextToClipboard(text) {
