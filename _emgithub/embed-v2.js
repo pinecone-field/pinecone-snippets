@@ -4,9 +4,9 @@
   const target = new URL(params.get("target"));
   const type = params.get("type") || 'code';
   const style = params.get("style");
-  const styleClassName = `hljs-style-${style.replace(/[^a-zA-Z0-9]/g, '-')}`;
-  const lightStyles = ['default', 'a11y-light', 'arduino-light', 'ascetic', 'atom-one-light', 'brown-paper', 'color-brewer', 'docco', 'foundation', 'github', 'googlecode', 'gradient-light', 'grayscale', 'idea', 'intellij-light', 'isbl-editor-light', 'kimbie-light', 'lightfair', 'magula', 'mono-blue', 'nnfx-light', 'panda-syntax-light', 'paraiso-light', 'purebasic', 'qtcreator-light', 'routeros', 'school-book', 'stackoverflow-light', 'tokyo-night-light', 'vs', 'xcode', 'base16/atelier-cave-light', 'base16/atelier-dune-light', 'base16/atelier-estuary-light', 'base16/atelier-forest-light', 'base16/atelier-heath-light', 'base16/atelier-lakeside-light', 'base16/atelier-plateau-light', 'base16/atelier-savanna-light', 'base16/atelier-seaside-light', 'base16/atelier-sulphurpool-light', 'base16/brush-trees', 'base16/classic-light', 'base16/cupcake', 'base16/cupertino', 'base16/default-light', 'base16/dirtysea', 'base16/edge-light', 'base16/equilibrium-gray-light', 'base16/equilibrium-light', 'base16/fruit-soda', 'base16/github', 'base16/google-light', 'base16/grayscale-light', 'base16/gruvbox-light-hard', 'base16/gruvbox-light-medium', 'base16/gruvbox-light-soft', 'base16/harmonic16-light', 'base16/heetch-light', 'base16/horizon-light', 'base16/humanoid-light', 'base16/ia-light', 'base16/material-lighter', 'base16/mexico-light', 'base16/one-light', 'base16/papercolor-light', 'base16/ros-pine-dawn', 'base16/sagelight', 'base16/shapeshifter', 'base16/silk-light', 'base16/solar-flare-light', 'base16/solarized-light', 'base16/summerfruit-light', 'base16/synth-midnight-terminal-light', 'base16/tomorrow', 'base16/unikitty-light', 'base16/windows-10-light', 'base16/windows-95-light', 'base16/windows-high-contrast-light', 'base16/windows-nt-light'];
-  const isDarkStyle = !lightStyles.includes(style);
+  // const styleClassName = `hljs-style-${style.replace(/[^a-zA-Z0-9]/g, '-')}`;
+  // const lightStyles = ['default', 'a11y-light', 'arduino-light', 'ascetic', 'atom-one-light', 'brown-paper', 'color-brewer', 'docco', 'foundation', 'github', 'googlecode', 'gradient-light', 'grayscale', 'idea', 'intellij-light', 'isbl-editor-light', 'kimbie-light', 'lightfair', 'magula', 'mono-blue', 'nnfx-light', 'panda-syntax-light', 'paraiso-light', 'purebasic', 'qtcreator-light', 'routeros', 'school-book', 'stackoverflow-light', 'tokyo-night-light', 'vs', 'xcode', 'base16/atelier-cave-light', 'base16/atelier-dune-light', 'base16/atelier-estuary-light', 'base16/atelier-forest-light', 'base16/atelier-heath-light', 'base16/atelier-lakeside-light', 'base16/atelier-plateau-light', 'base16/atelier-savanna-light', 'base16/atelier-seaside-light', 'base16/atelier-sulphurpool-light', 'base16/brush-trees', 'base16/classic-light', 'base16/cupcake', 'base16/cupertino', 'base16/default-light', 'base16/dirtysea', 'base16/edge-light', 'base16/equilibrium-gray-light', 'base16/equilibrium-light', 'base16/fruit-soda', 'base16/github', 'base16/google-light', 'base16/grayscale-light', 'base16/gruvbox-light-hard', 'base16/gruvbox-light-medium', 'base16/gruvbox-light-soft', 'base16/harmonic16-light', 'base16/heetch-light', 'base16/horizon-light', 'base16/humanoid-light', 'base16/ia-light', 'base16/material-lighter', 'base16/mexico-light', 'base16/one-light', 'base16/papercolor-light', 'base16/ros-pine-dawn', 'base16/sagelight', 'base16/shapeshifter', 'base16/silk-light', 'base16/solar-flare-light', 'base16/solarized-light', 'base16/summerfruit-light', 'base16/synth-midnight-terminal-light', 'base16/tomorrow', 'base16/unikitty-light', 'base16/windows-10-light', 'base16/windows-95-light', 'base16/windows-high-contrast-light', 'base16/windows-nt-light'];
+  const isDarkStyle = style === "dark";
   const showBorder = params.get("showBorder") === "on";
   const showLineNumbers = params.get("showLineNumbers") === "on";
   const showFileMeta = params.get("showFileMeta") === "on";
@@ -88,18 +88,7 @@
 
 <style>
   .emgithub-file {
-    border-radius: 6px;
     overflow: hidden;
-    margin: 1em 0;
-  }
-
-  .emgithub-file-light {
-    border: 1px solid #ccc;
-  }
-
-  .emgithub-file-dark {
-    border: 1px solid #555;
-    background-color: #0d1117;
   }
 
 
@@ -149,102 +138,57 @@
   }
 
   .emgithub-file .code-area .copy-btn {
-    display: none;
-    border-radius: 3px;
-    font: bold 13px monospace;
+    border-radius: 6px;
     text-decoration: none;
     position: absolute;
-    top: 0px;
-    right: 0px;
-    margin: 0.4rem;
-    padding: 0.3rem;
+    top: 12px;
+    right: 12px;
+    z-index: 1;
+    padding: 6px;
   }
 
-  .emgithub-file:hover .code-area .copy-btn {
-    display: block;
-  }
-
-  .emgithub-file .code-area .copy-btn-light {
-    color: #586069;
-    background-color: #f7f7f7;
-    border: 1px solid #ccc;
+  .emgithub-file .code-area .copy-btn {
+    border: 1px solid rgba(var(--text-secondary-rgb), 0.4);
   }
 
   .emgithub-file .code-area .copy-btn-dark {
-    color: #f7f7f7;
-    background-color: #586069;
-    border: 1px solid #555;
+    border: 1px solid rgba(var(--text-primary-rgb), 0.3);
   }
 
-  .emgithub-file .code-area .copy-btn-light:hover {
-    color: #f7f7f7;
-    background-color: #586069;
+  .emgithub-file .code-area .copy-btn:hover {
+    opacity: 1;
   }
 
-  .emgithub-file .code-area .copy-btn-dark:hover {
-    color: #586069;
-    background-color: #f7f7f7;
+  .emgithub-file .code-area .copy-btn-light svg path {
+    fill: var(--text-secondary);
+    opacity: 0.4;
   }
 
-  .emgithub-file .code-area .copy-btn-light:active {
-    /* darken #586069 by 20% https://www.cssfontstack.com/oldsites/hexcolortool/ */
-    background-color: #252d36;
+  .emgithub-file .code-area .copy-btn-dark svg path {
+    fill: var(--text-primary);
+    opacity: 0.4;
   }
 
-  .emgithub-file .code-area .copy-btn-dark:active {
-    /* darken #f7f7f7 by 20% */
-    background-color: #c4c4c4;
+  .emgithub-file .code-area .copy-btn:hover svg path {
+    fill: var(--text-primary);
+    opacity: 1;
   }
 
-  .emgithub-file .code-area pre {
-    margin: 0;
-    padding: 0;
-    tab-size: ${tabSize};
-  }
-
-  .emgithub-file .code-area .hljs-ln-numbers {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-
-    text-align: right;
-    color: #aaa;
-    vertical-align: top;
-  }
-
-  .emgithub-file .code-area td.hljs-ln-numbers {
-    padding-right: 1rem;
-  }
-
-  .emgithub-file .code-area td.hljs-ln-line {
-    line-height: 21px;
-    font-size: 12px;
-    font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
-    border: 0;
-  }
-
-  .emgithub-file .code-area table.hljs-ln {
-    border: 0;
-    margin: 0;
-  }
-
-  .emgithub-file .code-area pre code.hljs {
-    padding: 0.8em;
-  }
-
-  /* use where() for backward compatibility */
-  :where(.emgithub-file .code-area pre code.hljs) {
-    box-sizing: border-box;
-    max-height: ${maxHeight ? maxHeight + 'px' : 'none'};
-    overflow-y: ${maxHeight ? 'auto' : 'visible'};
-  }
-
-  .emgithub-file .code-area .hide-line-numbers .hljs-ln-numbers {
+  .copy-success {
     display: none;
+    position: absolute;
+    right: 4px;
+    top: 54px;
+    font-size: 14px;
+    color: var(text-secondary);
+    z-index: 1;
+    font-family: JetBrains Mono, monospace;
   }
+
+  .dark .copy-success {
+    color: var(--text-primary);
+  }
+
 </style>
 
 <style>
@@ -314,13 +258,26 @@
     <div></div>
   </div>
 
-  <div class="emgithub-file emgithub-file-${isDarkStyle ? 'dark' : 'light'}"
-    style="display:none;${showBorder ? '' : 'border:0'}">
-    <div class="file-data ${styleClassName}">
+  <div class="emgithub-file ${style}"
+    style="display:none;">
+    <div class="file-data">
       ${type === 'code' ? `<div class="code-area">
-        ${showCopy ? `<a class="copy-btn copy-btn-${isDarkStyle ? 'dark' : 'light'}" href="javascript:void(0)">Copy</a>`
+        ${showCopy ? `<a class="copy-btn copy-btn-${isDarkStyle ? 'dark' : 'light'}" href="javascript:void(0)"><svg
+        width="16px"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="4.25 2.25 15.5 19.5"
+              className="w-4"
+            >
+              <path
+                fill="var(--text-primary)"
+                d="M19.53 8 14 2.47a.75.75 0 0 0-.53-.22H11A2.75 2.75 0 0 0 8.25 5v1.25H7A2.75 2.75 0 0 0 4.25 9v10A2.75 2.75 0 0 0 7 21.75h7A2.75 2.75 0 0 0 16.75 19v-1.25H17A2.75 2.75 0 0 0 19.75 15V8.5a.75.75 0 0 0-.22-.5Zm-5.28-3.19 2.94 2.94h-2.94V4.81Zm1 14.19A1.25 1.25 0 0 1 14 20.25H7A1.25 1.25 0 0 1 5.75 19V9A1.25 1.25 0 0 1 7 7.75h1.25V15A2.75 2.75 0 0 0 11 17.75h4.25V19ZM17 16.25h-6A1.25 1.25 0 0 1 9.75 15V5A1.25 1.25 0 0 1 11 3.75h1.75V8.5a.76.76 0 0 0 .75.75h4.75V15A1.25 1.25 0 0 1 17 16.25Z"
+              />
+            </svg></a> 
+            <div class="copy-success">
+              Copied!
+            </div>`
         : ''}
-        <pre><code class="${fileExtension} ${showLineNumbers ? '' : 'hide-line-numbers'}"></code></pre>
+        <pre class="language-${fileExtension} ${showLineNumbers ? 'line-numbers' : ''}"><code class="language-${fileExtension} ${showLineNumbers ? 'line-numbers' : ''}"></code></pre>
       </div>`: ''}
 
       ${type === 'markdown' || type === 'ipynb' ? `
@@ -354,19 +311,35 @@
 
 
   // Loading the external libraries
-  const HLJSURL = "https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.6.0/build/highlight.min.js";
-  const HLJSNumURL = "https://cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.8.0/dist/highlightjs-line-numbers.min.js";
-  const loadHLJS = typeof hljs != "undefined" && typeof hljs.highlightElement != "undefined" ? Promise.resolve() : loadScript(HLJSURL);
-  // Always use hljs-num even if showLineNumbers is false for a consistent display
-  // hljs-num should be loaded only after hljs is loaded
-  const loadHLJSNum = loadHLJS.then(() => (typeof hljs.lineNumbersBlock != "undefined" ? Promise.resolve() : loadScript(HLJSNumURL)));
-  const loadHLJSStyle = fetch(`https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.6.0/build/styles/${style}.min.css`)
-    .then((response) => response.text())
-    .then((text) => {
-      insertStyle(scopeCss(text, '.' + styleClassName));
-    });
+  // const HLJSURL = "https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.6.0/build/highlight.min.js";
+  // const HLJSNumURL = "https://cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.8.0/dist/highlightjs-line-numbers.min.js";
+  // const loadHLJS = typeof hljs != "undefined" && typeof hljs.highlightElement != "undefined" ? Promise.resolve() : loadScript(HLJSURL);
+  // // Always use hljs-num even if showLineNumbers is false for a consistent display
+  // // hljs-num should be loaded only after hljs is loaded
+  // const loadHLJSNum = loadHLJS.then(() => (typeof hljs.lineNumbersBlock != "undefined" ? Promise.resolve() : loadScript(HLJSNumURL)));
+  // const loadHLJSStyle = fetch(`https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.6.0/build/styles/${style}.min.css`)
+  //   .then((response) => response.text())
+  //   .then((text) => {
+  //     insertStyle(scopeCss(text, '.' + styleClassName));
+  //   });
 
-  promises.push(loadHLJSNum);
+  // promises.push(loadHLJSNum);
+
+  const prismUrl = "https://cdn.jsdelivr.net/npm/prismjs@1.30.0/prism.min.js";
+  const prismAutoLoader = "https://cdn.jsdelivr.net/npm/prismjs@1.30.0/plugins/autoloader/prism-autoloader.min.js";
+  const prismLineNumbers = "https://cdn.jsdelivr.net/npm/prismjs@1.30.0/plugins/line-numbers/prism-line-numbers.min.js";
+
+  const loadPrism = typeof Prism != "undefined" ? Promise.resolve() : loadScript(prismUrl);
+
+  const loadPrismAutoLoader = loadPrism.then(() => 
+    typeof Prism.plugins?.autoloader != "undefined" ? Promise.resolve() : loadScript(prismAutoLoader)
+  );
+
+  const loadPrismLineNumbers = loadPrism.then(() => 
+    typeof Prism.plugins?.lineNumbers != "undefined" ? Promise.resolve() : loadScript(prismLineNumbers)
+  );
+
+  promises.push(loadPrism, loadPrismAutoLoader, loadPrismLineNumbers);
 
   if (type === 'markdown' || type === 'ipynb') {
     const loadMarked = typeof marked != "undefined" ? Promise.resolve() : loadScript('https://cdn.jsdelivr.net/npm/marked@4.0.18/marked.min.js');
@@ -454,11 +427,23 @@
         });
       }
 
-      hljs.highlightElement(codeTag);
-      hljs.lineNumbersBlock(codeTag, {
-        singleLine: true,
-        startFrom: (startLine > 0 && fetchSuccess) ? Number.parseInt(startLine) : 1
-      });
+      // hljs.highlightElement(codeTag);
+      // hljs.lineNumbersBlock(codeTag, {
+      //   singleLine: true,
+      //   startFrom: (startLine > 0 && fetchSuccess) ? Number.parseInt(startLine) : 1
+      // });
+
+      Prism.highlightElement(codeTag);
+
+      // Get the height of the pre and send it to parent window
+      setTimeout(() => {
+        const pre = targetDiv.querySelector("pre");
+        const rect = pre.getBoundingClientRect();
+        window.parent.postMessage(
+          { action: "code-height", height: rect.height },
+          "*"
+        );
+      }, 0);
 
     } else if (type === 'markdown') {
       targetDiv.querySelector(".html-area").innerHTML = fetchSuccess ? marked.parse(result[0].value, { baseUrl: rawDirectoryURL }) : result[0].reason;
@@ -536,6 +521,14 @@ function copyTextToClipboard(text) {
     return;
   }
   navigator.clipboard.writeText(text);
+
+  const copySuccess = document.querySelector(".copy-success");
+  if (copySuccess) {
+    copySuccess.style.display = "block";
+    setTimeout(() => {
+      copySuccess.style.display = "none";
+    }, 2000);
+  }
 }
 
 function fallbackCopyTextToClipboard(text) {
